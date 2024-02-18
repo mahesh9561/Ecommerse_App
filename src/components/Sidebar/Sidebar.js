@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSideBarStatus, setSideBarOff,setSideBarOn } from '../../store/sidebarSlice';
+import { getSideBarStatus, setSideBarOff } from '../../store/sidebarSlice';
 
 function Sidebar() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function Sidebar() {
       <button
         type="button"
         className="sidebar-hide-btn absolute right-8 transition ease-in-out hover:text-orange-500"
-        onClick={() => dispatch(setSideBarOn())}
+        onClick={() => dispatch(setSideBarOff())}
       >
         <i className="fas fa-times"></i>
       </button>
