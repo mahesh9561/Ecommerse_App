@@ -18,6 +18,13 @@ const categorySlice = createSlice({
             .addCase(fetchAsyncCategories.pending, (state, action) => {
                 state.categoriesStatus = STATUS.LOADING;
             })
+            .addCase(fetchAsyncCategories.fulfilled, (state, action) => {
+                state.categories = action.payload;
+                state.categoriesStatus = STATUS.SUCCESS;
+            })
+            .addCase(fetchAsyncCategories.rejected, (state, action) => {
+                state.categoriesStatus = STATUS.FAILED;
+            })
     }
 });
 
@@ -25,7 +32,7 @@ export const fetchAsyncCategories = createAsyncThunk('categories/fetch', async (
     const response = await fetch(`${BASE_URL}products/categories`);
     const data = await response.json();
     return data;
-})
+});
 
 export const getAllCategories = (state) => state.category.categories;
 export default categorySlice.reducer;

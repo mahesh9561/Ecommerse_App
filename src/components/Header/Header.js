@@ -55,7 +55,7 @@ const Header = () => {
           </ul>
         </div>
 
-        <div className="header-cnt-bottom">
+        <div>
           <Navbar/>
         </div>
       </div>

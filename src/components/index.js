@@ -6,7 +6,6 @@ import Navbar from './Navbar/Navbar';
 import Product from './Product/Product';
 import ProductList from './ProductList/ProductList';
 import Sidebar from './Sidebar/Sidebar';
-import Slider from './Slider/Slider';
 
 
-export { Header, Footer, CartModel, Loader, Navbar, ProductList, Product, Slider, Sidebar };
+export { Header, Footer, CartModel, Loader, Navbar, ProductList, Product, Sidebar };
