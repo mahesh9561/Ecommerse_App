@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASE_URL } from "../utils/apiURL";
 import { STATUS } from "../utils/status";
 
+// Add your initial state here
 const initialState = {
     products: [],
     productStatus: STATUS.IDLE,
@@ -9,6 +10,20 @@ const initialState = {
     productSingleStatus: STATUS.IDLE,
 }
 
+// Async thunks
+export const fetchAsyncProducts = createAsyncThunk('products/fetch', async (limit) => {
+    const response = await fetch(`${BASE_URL}products?limit=${limit}`);
+    const data = await response.json();
+    return data.products;
+});
+
+export const fetchAsyncProductSingle = createAsyncThunk('product-single/fetch', async (id) => {
+    const response = await fetch(`${BASE_URL}products/${id}`);
+    const data = await response.json();
+    return data;
+});
+
+// Create the slice
 const productSlice = createSlice({
     name: 'product',
     initialState,
@@ -29,35 +44,21 @@ const productSlice = createSlice({
 
             // fetchAsyncProductSingle
             .addCase(fetchAsyncProductSingle.pending, (state, action) => {
-                state.productStatus = STATUS.LOADING;
+                state.productSingleStatus = STATUS.LOADING;
             })
             .addCase(fetchAsyncProductSingle.fulfilled, (state, action) => {
-                state.products = action.payload;
-                state.productStatus = STATUS.SUCCESS;
+                state.productSingle = action.payload;
+                state.productSingleStatus = STATUS.SUCCESS;
             })
             .addCase(fetchAsyncProductSingle.rejected, (state, action) => {
-                state.productStatus = STATUS.FAILED;
+                state.productSingleStatus = STATUS.FAILED;
             })
     }
 });
 
-// for getting the products list with limitted numbers
-export const fetchAsyncProducts = createAsyncThunk('products/fetch', async (limit) => {
-    const response = await fetch(`${BASE_URL}products?limit=${limit}`)
-    const data = await response.json();
-    // console.log(data.products)
-    return data.products;
-})
-
-// getting single product also
-export const fetchAsyncProductSingle = createAsyncThunk('product-single/fetch', async (id) => {
-    const response = await fetch(`${BASE_URL}products/${id}`)
-    const data = await response.json();
-    return data;
-})
-
+// Export your selectors and reducer
 export const getAllProducts = (state) => state.product.products;
 export const getAllProductStatus = (state) => state.product.productStatus;
 export const getProductSingle = (state) => state.product.productSingle;
-export const getSingProductStatus = (state) => state.product.getSingProductStatus;
+export const getSingProductStatus = (state) => state.product.productSingleStatus; 
 export default productSlice.reducer;

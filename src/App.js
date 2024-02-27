@@ -23,6 +23,7 @@ function App() {
             {/* search */}
             <Route path='/search/:searchTerm' element={SearchPage}/>
           </Routes>
+          <Footer/>
         </BrowserRouter>
       </Provider>
     </div>
